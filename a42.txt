@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Hockey — Skill on Grass and Turf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pitch:#1E4429;
+    --turf:#3E7C4A;
+    --cream:#F6F2E7;
+    --gold:#D9A441;
+    --charcoal:#20261C;
+    --grey:#6B7566;
+    --line: rgba(30,68,41,0.14);
+    --max: 1120px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--charcoal);
+    font-family:'Work Sans', sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    line-height:0.98;
+    letter-spacing:0.005em;
+  }
+  h2.section-title{font-size:clamp(2.1rem, 4.4vw, 3.1rem); margin-bottom:0.5rem;}
+  p{max-width:60ch;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 24px;}
+
+  /* NAV */
+  nav{position:sticky; top:0; z-index:50; background:var(--cream); border-bottom:2px solid var(--pitch);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:68px;}
+  .logo{font-family:'Anton'; font-size:1.3rem; color:var(--pitch); text-transform:uppercase; display:flex; align-items:center; gap:10px;}
+  .logo .ball{width:11px; height:11px; background:var(--gold); border-radius:50%; display:inline-block;}
+  nav ul{list-style:none; display:flex; gap:26px;}
+  nav a{color:var(--grey); text-decoration:none; font-size:0.9rem; font-weight:600;}
+  nav a:hover{color:var(--pitch);}
+
+  /* HERO — asymmetric split, not full-bleed */
+  .hero{background:var(--cream);}
+  .hero-grid{
+    display:grid; grid-template-columns:1fr 1fr;
+    min-height:82vh;
+  }
+  .hero-text{
+    display:flex; flex-direction:column; justify-content:center;
+    padding:60px 56px 60px 24px;
+  }
+  .hero-eyebrow{color:var(--turf); font-weight:700; font-size:0.9rem; margin-bottom:16px; letter-spacing:0.02em;}
+  .hero h1{font-size:clamp(2.8rem, 6.5vw, 5rem); color:var(--pitch);}
+  .hero p.lede{font-family:'Source Serif 4', serif; font-size:1.2rem; color:#3A4534; margin-top:22px; max-width:46ch;}
+  .hero-facts{display:flex; gap:0; margin-top:40px; border-top:2px solid var(--pitch);}
+  .hero-facts div{flex:1; padding:16px 18px 0 0; border-right:1px solid var(--line);}
+  .hero-facts div:last-child{border-right:none;}
+  .hero-facts .num{font-family:'Anton'; font-size:1.9rem; color:var(--pitch);}
+  .hero-facts .lab{font-size:0.8rem; color:var(--grey); margin-top:4px;}
+  .hero-media{position:relative; overflow:hidden;}
+  .hero-media img{width:100%; height:100%; object-fit:cover;}
+  .hero-media .tag{
+    position:absolute; left:24px; bottom:24px;
+    background:var(--pitch); color:var(--cream);
+    font-size:0.78rem; padding:8px 14px; font-weight:600;
+  }
+
+  /* SECTION GENERIC */
+  section{padding:96px 0;}
+  .kicker{color:var(--turf); font-weight:700; font-size:0.88rem; margin-bottom:10px; letter-spacing:0.02em;}
+  .lead-text{font-family:'Source Serif 4', serif; font-size:1.12rem; color:#3A4534;}
+
+  /* INTRO SPLIT */
+  .split{display:grid; grid-template-columns:0.95fr 1.05fr; gap:60px; align-items:center;}
+  .split.reverse{grid-template-columns:1.05fr 0.95fr;}
+  .split.reverse .media{order:2;}
+  .media img{border-radius:2px;}
+  .media .cap{font-size:0.82rem; color:var(--grey); margin-top:10px; font-style:italic;}
+
+  /* ORIGINS TIMELINE — horizontal cards instead of ice page's vertical rows */
+  .origins{background:var(--pitch); color:var(--cream);}
+  .origins .kicker{color:var(--gold);}
+  .origins .section-title{color:var(--cream);}
+  .origins .lead-text{color:#CBD9C9;}
+  .era-row{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; margin-top:52px;}
+  .era-card{background:rgba(246,242,231,0.05); border:1px solid rgba(246,242,231,0.16); padding:0;}
+  .era-card img{width:100%; height:190px; object-fit:cover;}
+  .era-body{padding:22px 24px 26px;}
+  .era-year{font-family:'Anton'; font-size:1.5rem; color:var(--gold);}
+  .era-body h3{font-family:'Source Serif 4', serif; font-weight:600; text-transform:none; font-size:1.1rem; margin:8px 0 8px; letter-spacing:0;}
+  .era-body p{color:#CBD9C9; font-size:0.92rem;}
+
+  /* PITCH & EQUIPMENT */
+  .pitch-diagram{
+    background:var(--turf);
+    aspect-ratio:16/9;
+    position:relative;
+    border:6px solid var(--cream);
+    margin-top:8px;
+  }
+  .pitch-diagram svg{width:100%; height:100%; display:block;}
+  .equip-row{display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:52px;}
+  .equip-card .imgbox{aspect-ratio:1/1; overflow:hidden; border-radius:2px;}
+  .equip-card .imgbox img{width:100%; height:100%; object-fit:cover;}
+  .equip-card h3{font-family:'Work Sans'; text-transform:none; font-weight:600; font-size:1rem; margin:12px 0 5px;}
+  .equip-card p{font-size:0.87rem; color:var(--grey);}
+
+  /* RULES */
+  .rules-list{margin-top:52px; display:flex; flex-direction:column;}
+  .rule-row{
+    display:grid; grid-template-columns:64px 1fr;
+    gap:24px; padding:26px 0; border-bottom:1px solid var(--line);
+  }
+  .rule-row:first-child{border-top:1px solid var(--line);}
+  .rule-row .rn{font-family:'Anton'; font-size:2rem; color:var(--turf);}
+  .rule-row h3{font-family:'Work Sans'; text-transform:none; font-weight:600; font-size:1.05rem; margin-bottom:6px;}
+  .rule-row p{font-size:0.95rem; color:#3A4534;}
+
+  /* POSITIONS — card grid, distinct from ice page's row layout */
+  .positions{background:#EFEADA;}
+  .pos-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:52px;}
+  .pos-card{background:var(--cream); border-top:4px solid var(--turf); padding:26px 20px;}
+  .pos-card h3{font-family:'Anton'; font-size:1.3rem; color:var(--pitch); margin-bottom:10px;}
+  .pos-card p{font-size:0.9rem; color:#3A4534;}
+
+  /* SKILLS */
+  .skills-wrap{margin-top:52px; display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .skill-card{border:1px solid var(--line); padding:24px;}
+  .skill-card h4{font-family:'Work Sans'; font-weight:700; font-size:1rem; margin-bottom:8px; color:var(--pitch);}
+  .skill-card p{font-size:0.92rem; color:#3A4534;}
+
+  /* COMPETITIONS */
+  .comps{background:var(--pitch); color:var(--cream);}
+  .comps .kicker{color:var(--gold);}
+  .comps .section-title{color:var(--cream);}
+  .comp-list{margin-top:48px;}
+  .comp-row{
+    display:grid; grid-template-columns:220px 1fr; gap:28px;
+    padding:24px 0; border-bottom:1px solid rgba(246,242,231,0.16);
+    align-items:baseline;
+  }
+  .comp-row:first-child{border-top:1px solid rgba(246,242,231,0.16);}
+  .comp-name{font-family:'Anton'; font-size:1.3rem; color:var(--gold);}
+  .comp-row p{color:#CBD9C9; font-size:0.93rem;}
+
+  /* FACTS */
+  .fact-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; margin-top:52px; background:var(--line); border:1px solid var(--line);}
+  .fact-cell{background:var(--cream); padding:30px 22px;}
+  .fact-cell .num{font-family:'Anton'; font-size:2.2rem; color:var(--turf);}
+  .fact-cell p{font-size:0.86rem; color:var(--grey); margin-top:8px;}
+
+  /* GALLERY */
+  .gallery-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:52px;}
+  .gallery-grid img{width:100%; height:220px; object-fit:cover; border-radius:2px;}
+
+  /* FOOTER */
+  footer{background:var(--charcoal); color:var(--cream); padding:56px 0 36px;}
+  footer .foot-top{display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; padding-bottom:32px; border-bottom:1px solid rgba(246,242,231,0.14);}
+  footer .foot-note{color:#A9B4A2; font-size:0.9rem; max-width:44ch;}
+  footer .foot-bottom{padding-top:22px; display:flex; justify-content:space-between; color:#7B8676; font-size:0.8rem; flex-wrap:wrap; gap:10px;}
+
+  @media (max-width: 880px){
+    nav ul{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-media{height:340px;}
+    .split, .split.reverse{grid-template-columns:1fr;}
+    .split.reverse .media{order:0;}
+    .era-row{grid-template-columns:1fr;}
+    .equip-row{grid-template-columns:repeat(2,1fr);}
+    .pos-grid{grid-template-columns:repeat(2,1fr);}
+    .skills-wrap{grid-template-columns:1fr;}
+    .comp-row{grid-template-columns:1fr; gap:8px;}
+    .fact-strip{grid-template-columns:repeat(2,1fr);}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    section{padding:64px 0;}
+  }
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="ball"></span>ON THE PITCH</div>
+    <ul>
+      <li><a href="#origins">Origins</a></li>
+      <li><a href="#pitch">The Pitch</a></li>
+      <li><a href="#rules">Rules</a></li>
+      <li><a href="#positions">Positions</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#comps">Competitions</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <div class="hero-eyebrow">A GUIDE TO THE GAME</div>
+      <h1>SKILL ON GRASS AND TURF</h1>
+      <p class="lede">Eleven players a side, a hard plastic ball, and sticks that never leave the ground above knee height. Field hockey is one of the most widely played team sports on earth — here's how it works, where it began, and what separates a good pass from a great one.</p>
+      <div class="hero-facts">
+        <div>
+          <div class="num">11</div>
+          <div class="lab">players per side on the pitch</div>
+        </div>
+        <div>
+          <div class="num">70</div>
+          <div class="lab">minutes across four quarters</div>
+        </div>
+        <div>
+          <div class="num">100mph</div>
+          <div class="lab">top speed of a struck ball</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/GBR_vs_USA_FIHPL_match_2019.jpg" alt="Players competing for the ball during a Great Britain versus USA field hockey match">
+      <div class="tag">Great Britain v USA, FIH Pro League</div>
+    </div>
+  </div>
+</header>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="wrap split">
+    <div>
+      <div class="kicker">WHAT IS FIELD HOCKEY</div>
+      <h2 class="section-title">A game of touch, not power</h2>
+      <p class="lead-text">Field hockey is played on a rectangular pitch, traditionally grass but almost always artificial turf at the competitive level, with two teams of eleven trying to hit, push, or flick a ball into the opposing goal using a curved wooden or composite stick. Unlike ice hockey, there's no lifting the stick above the shoulder and no raising it dangerously near another player — the game rewards close control and quick feet over sheer force.</p>
+      <p style="margin-top:16px;">It's also one of the most international team sports played today, with strong domestic leagues and national programs across Europe, Asia, Australia, and Africa, and a place at every Summer Olympics since 1908.</p>
+    </div>
+    <div class="media">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Field_hockey_at_the_2012_Summer_Olympics_-_NZL-AUS_(7796665032).jpg" alt="New Zealand versus Australia at the 2012 Summer Olympics field hockey tournament">
+      <div class="cap">New Zealand and Australia compete at the 2012 Summer Olympics.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ORIGINS -->
+<section id="origins" class="origins">
+  <div class="wrap">
+    <div class="kicker">WHERE THE GAME BEGAN</div>
+    <h2 class="section-title">Origins of the sport</h2>
+    <p class="lead-text">Stick-and-ball games go back thousands of years across several continents, but the version played today took shape in 19th-century England before spreading through the British Empire and beyond.</p>
+
+    <div class="era-row">
+      <div class="era-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/BRGS_Hockey_1st_team_1920-21.jpg" alt="An early field hockey team photograph from 1920 to 1921">
+        <div class="era-body">
+          <div class="era-year">1849</div>
+          <h3>Clubs begin to form</h3>
+          <p>Some of the earliest organised hockey clubs were founded in England, adapting older folk games into a sport with agreed rules and a fixed pitch.</p>
+        </div>
+      </div>
+      <div class="era-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Miami_University_Women's_Intramural_Field_Hockey_action_1923_(3191485164).jpg" alt="Women's intramural field hockey action at Miami University in 1923">
+        <div class="era-body">
+          <div class="era-year">1901</div>
+          <h3>Women's hockey takes hold</h3>
+          <p>The All England Women's Hockey Association formed in 1895, and by the early 1900s the women's game was thriving in schools and universities across Britain and the United States.</p>
+        </div>
+      </div>
+      <div class="era-card">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Field_hockey_at_the_2012_Summer_Olympics_-_NZL-AUS_(7796665032).jpg" alt="Field hockey at the 2012 Summer Olympics">
+        <div class="era-body">
+          <div class="era-year">1908</div>
+          <h3>Onto the Olympic stage</h3>
+          <p>Men's field hockey debuted at the 1908 London Olympics; the women's tournament followed in 1980, and both have been fixtures of the Summer Games since.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PITCH & EQUIPMENT -->
+<section id="pitch">
+  <div class="wrap split reverse">
+    <div class="media">
+      <div class="pitch-diagram">
+        <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="6" width="628" height="348" fill="none" stroke="#F6F2E7" stroke-width="3"/>
+          <line x1="320" y1="6" x2="320" y2="354" stroke="#F6F2E7" stroke-width="2" stroke-dasharray="6 6"/>
+          <rect x="6" y="106" width="88" height="148" fill="none" stroke="#F6F2E7" stroke-width="2"/>
+          <path d="M94,106 A148,148 0 0 1 94,254" fill="none" stroke="#F6F2E7" stroke-width="2"/>
+          <rect x="546" y="106" width="88" height="148" fill="none" stroke="#F6F2E7" stroke-width="2"/>
+          <path d="M546,106 A148,148 0 0 0 546,254" fill="none" stroke="#F6F2E7" stroke-width="2"/>
+          <rect x="6" y="150" width="26" height="60" fill="#F6F2E7" opacity="0.9"/>
+          <rect x="608" y="150" width="26" height="60" fill="#F6F2E7" opacity="0.9"/>
+          <circle cx="320" cy="180" r="3" fill="#F6F2E7"/>
+        </svg>
+      </div>
+      <div class="cap">A simplified layout of a field hockey pitch: 91.4 metres long, with a shooting circle in front of each goal.</div>
+    </div>
+    <div>
+      <div class="kicker">THE PLAYING FIELD</div>
+      <h2 class="section-title">The pitch and the gear</h2>
+      <p class="lead-text">Nearly every top-level match today is played on artificial turf rather than grass — it gives a truer, faster bounce and lets teams play a quicker passing game. Goals can only be scored from inside the shooting circle marked in front of each net, which shapes almost everything about how attacking play is built.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="equip-row">
+      <div class="equip-card">
+        <div class="imgbox"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Alter_holzhockeyschlaeger.jpg" alt="A traditional wooden field hockey stick"></div>
+        <h3>The stick</h3>
+        <p>J-shaped and roughly a metre long, with only the flat side legal for playing the ball — the rounded back can't be used to strike or push it.</p>
+      </div>
+      <div class="equip-card">
+        <div class="imgbox"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Durchgebrochener_hockeyschlaeger.jpg" alt="A close view of field hockey stick construction"></div>
+        <h3>The ball</h3>
+        <p>A hard plastic sphere about the size of a baseball, built to skim fast and true across turf without much bounce.</p>
+      </div>
+      <div class="equip-card">
+        <div class="imgbox"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Olympic_Green_Hockey_Field.jpg" alt="An artificial turf field hockey pitch"></div>
+        <h3>The turf</h3>
+        <p>Water-based artificial pitches are standard in top competition, watered before matches to keep the surface fast and consistent.</p>
+      </div>
+      <div class="equip-card">
+        <div class="imgbox"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/2008_Olympic_field_hockey_team_Great_Britain.JPG" alt="Members of a national field hockey team in kit"></div>
+        <h3>Kit & shin guards</h3>
+        <p>Outfield players wear light kit and mandatory shin guards and mouthguards; only the goalkeeper wears heavy, padded protective gear.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section id="rules">
+  <div class="wrap">
+    <div class="kicker">HOW A MATCH WORKS</div>
+    <h2 class="section-title">The essential rules</h2>
+    <p class="lead-text">Field hockey has a reputation for being complex to follow, but most of it comes down to a handful of core ideas.</p>
+
+    <div class="rules-list">
+      <div class="rule-row">
+        <div class="rn">01</div>
+        <div>
+          <h3>Four quarters</h3>
+          <p>Matches run 60–70 minutes, split into four quarters with short breaks between each — a format adopted to give players brief recovery windows in a fast, high-intensity game.</p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <div class="rn">02</div>
+        <div>
+          <h3>Scoring from the circle</h3>
+          <p>A goal only counts if the ball is played from inside the shooting circle in front of the goal — a shot struck from outside it doesn't count, even if it goes in.</p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <div class="rn">03</div>
+        <div>
+          <h3>The flat-side rule</h3>
+          <p>Only the flat face of the stick can touch the ball. Playing it with the rounded back, or raising the stick dangerously near another player, is a foul.</p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <div class="rn">04</div>
+        <div>
+          <h3>No offside</h3>
+          <p>Field hockey abolished its offside rule in the early 1990s, which opened the game up and made fast breaks and long passes far more common.</p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <div class="rn">05</div>
+        <div>
+          <h3>Penalty corners</h3>
+          <p>Awarded for fouls inside the circle, these set plays let the attacking team send in a fast, rehearsed shot with defenders restricted to fixed starting positions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POSITIONS -->
+<section id="positions" class="positions">
+  <div class="wrap">
+    <div class="kicker">WHO PLAYS WHERE</div>
+    <h2 class="section-title">Positions on the pitch</h2>
+    <p class="lead-text">Formations vary by team and era, but most sides still organise around four broad roles.</p>
+
+    <div class="pos-grid">
+      <div class="pos-card">
+        <h3>Goalkeeper</h3>
+        <p>The only player allowed to use their body to stop the ball inside the circle, wearing full protective padding built specifically for the position.</p>
+      </div>
+      <div class="pos-card">
+        <h3>Defenders</h3>
+        <p>Positioned to break up attacks and start play from the back, using tackles and interceptions to win back possession cleanly.</p>
+      </div>
+      <div class="pos-card">
+        <h3>Midfielders</h3>
+        <p>The link between defence and attack, covering the most distance of any player and shaping the tempo of the game.</p>
+      </div>
+      <div class="pos-card">
+        <h3>Forwards</h3>
+        <p>Focused on creating and finishing chances inside the circle, often working in pairs or trios to stretch a defence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="kicker">BUILDING THE FUNDAMENTALS</div>
+    <h2 class="section-title">Core skills players develop</h2>
+    <p class="lead-text">The best field hockey players tend to master the same small set of techniques, then combine them at speed.</p>
+
+    <div class="skills-wrap">
+      <div class="skill-card">
+        <h4>Dribbling</h4>
+        <p>Keeping the ball close with quick, light touches on the flat side of the stick while still moving at pace.</p>
+      </div>
+      <div class="skill-card">
+        <h4>The push pass</h4>
+        <p>A low, accurate pass rolled along the turf, more common than a hard hit for short and medium-range distribution.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Trapping</h4>
+        <p>Cushioning an incoming pass so it stays under control at the receiver's feet rather than bouncing away.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Tackling</h4>
+        <p>Timing a stick tackle to win the ball cleanly without making contact with an opponent's stick or body.</p>
+      </div>
+      <div class="skill-card">
+        <h4>The drag flick</h4>
+        <p>A specialised penalty-corner technique that whips the ball off the stick with power and disguise, often used to finish set plays.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Positional awareness</h4>
+        <p>Understanding when to hold shape and when to break lines, since field hockey has no offside rule to limit attacking runs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETITIONS -->
+<section id="comps" class="comps">
+  <div class="wrap">
+    <div class="kicker">THE BIGGEST STAGES</div>
+    <h2 class="section-title">Major competitions</h2>
+
+    <div class="comp-list">
+      <div class="comp-row">
+        <div class="comp-name">Olympics</div>
+        <p>Field hockey has been part of the Summer Games since 1908 for men and 1980 for women, and remains the sport's most prestigious international event.</p>
+      </div>
+      <div class="comp-row">
+        <div class="comp-name">FIH Pro League</div>
+        <p>An annual home-and-away league contested by the world's top national teams, running across the year rather than in a single tournament window.</p>
+      </div>
+      <div class="comp-row">
+        <div class="comp-name">World Cup</div>
+        <p>Held every four years and organised by the International Hockey Federation, bringing together the strongest national teams from every continent.</p>
+      </div>
+      <div class="comp-row">
+        <div class="comp-name">Domestic & club leagues</div>
+        <p>Strong club competitions exist across the Netherlands, Germany, India, Australia, and beyond, feeding talent into national programs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACTS -->
+<section>
+  <div class="wrap">
+    <div class="kicker">GOOD TO KNOW</div>
+    <h2 class="section-title">A few facts about the game</h2>
+
+    <div class="fact-strip">
+      <div class="fact-cell">
+        <div class="num">91.4m</div>
+        <p>The standard length of a field hockey pitch.</p>
+      </div>
+      <div class="fact-cell">
+        <div class="num">1908</div>
+        <p>The year men's field hockey debuted at the Olympics.</p>
+      </div>
+      <div class="fact-cell">
+        <div class="num">11</div>
+        <p>Players per team on the pitch, including the goalkeeper.</p>
+      </div>
+      <div class="fact-cell">
+        <div class="num">100+ mph</div>
+        <p>The top speed a hard-hit ball can reach.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="wrap">
+    <div class="kicker">THE GAME IN PICTURES</div>
+    <h2 class="section-title">On the pitch</h2>
+
+    <div class="gallery-grid">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Great_Britain_v_Argentina_Match_2_(2491861962).jpg" alt="Great Britain versus Argentina in a field hockey match">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/England_v_Germany_WCT_Bronze_Medal_Match_136_(4809903753).jpg" alt="England versus Germany at a Women's Hockey Champions Trophy bronze medal match">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Netherlands_womens_hockey_celebrate_-_2012_Olympics.jpg" alt="The Netherlands women's hockey team celebrating at the 2012 Olympics">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ohio_State_vs._Michigan_field_hockey_2012_09.jpg" alt="A college field hockey match between Ohio State and Michigan">
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="logo"><span class="ball"></span>ON THE PITCH</div>
+      <p class="foot-note">An informational guide to field hockey — its origins, rules, positions, and equipment. Built for anyone curious about the sport, from a first match watched pitch-side to following the Olympics.</p>
+    </div>
+    <div class="foot-bottom">
+      <span>Photographs sourced from Wikimedia Commons, used under their respective open licenses.</span>
+      <span>A guide to the game, not affiliated with any federation, team, or brand.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
